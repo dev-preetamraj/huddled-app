@@ -1,53 +1,71 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
-
-import Colors from '../../constants/Colors';
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import LogoutIconButton from "@/components/LogoutIconButton";
+import Colors from "@/constants/Colors";
+import { useUser } from "@clerk/clerk-expo";
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs, router } from "expo-router";
+import { Image, useColorScheme } from "react-native";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const theme = useColorScheme();
+  const { isSignedIn, user } = useUser();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
+        tabBarActiveTintColor: Colors[theme ?? "dark"].primary,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          title: "Huddled",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="friends"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Friends",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: "Messages",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbox-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: "Notifications",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="notifications-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color, size }) => {
+            if(isSignedIn && user.hasImage) {
+              return(
+                <Image source={{uri: user.imageUrl}} className="w-6 h-6 rounded-full" />
+              )
+            }
+            return(
+              <Ionicons name="person-circle-outline" color={color} size={size} />
+            )
+          },
+          headerRight: () => <LogoutIconButton />,
         }}
       />
     </Tabs>
