@@ -1,24 +1,24 @@
-import { View, TouchableOpacity, useColorScheme } from "react-native";
-import React from "react";
-import { Ionicons } from "@expo/vector-icons";
-import Colors from "@/constants/Colors";
-import { cva, VariantProps } from "class-variance-authority";
-import Text from "./ui/Text";
-import { useWarmUpBrowser } from "@/hooks/warmUpBrowser";
-import { useOAuth } from "@clerk/clerk-expo";
-import * as WebBrowser from "expo-web-browser";
-import { router } from "expo-router";
+import { View, TouchableOpacity, useColorScheme } from 'react-native';
+import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import Colors from '@/constants/Colors';
+import { cva, VariantProps } from 'class-variance-authority';
+import Text from './ui/Text';
+import { useWarmUpBrowser } from '@/hooks/warmUpBrowser';
+import { useOAuth } from '@clerk/clerk-expo';
+import * as WebBrowser from 'expo-web-browser';
+import { router } from 'expo-router';
 
 WebBrowser.maybeCompleteAuthSession();
 
 const socialButtonProps = cva(
-  "flex flex-row items-center justify-between p-4 rounded-md mt-6",
+  'flex flex-row items-center justify-between p-4 rounded-md mt-6',
   {
     variants: {
       provider: {
-        google: "bg-red-800",
-        facebook: "bg-blue-900",
-        github: "bg-gray-900",
+        google: 'bg-red-800',
+        facebook: 'bg-blue-900',
+        github: 'bg-gray-900',
       },
     },
   }
@@ -38,10 +38,10 @@ const SocialButton: React.FC<Props> = ({ provider }) => {
 
       if (createdSessionId) {
         setActive!({ session: createdSessionId });
-        router.push("/");
+        router.push('/');
       }
     } catch (err) {
-      console.error("OAuth error", err);
+      console.error('OAuth error', err);
     }
   }, []);
 
@@ -50,22 +50,22 @@ const SocialButton: React.FC<Props> = ({ provider }) => {
       className={socialButtonProps({ provider })}
       onPress={onPress}
     >
-      <View className="flex flex-row items-center space-x-2">
+      <View className='flex flex-row items-center space-x-2'>
         <Ionicons
-          name={provider ? `md-logo-${provider}` : "md-logo-google"}
+          name={provider ? `md-logo-${provider}` : 'md-logo-google'}
           size={24}
-          color={Colors[theme ?? "dark"].text}
+          color={Colors[theme ?? 'dark'].text}
         />
-        <Text className="text-lg">
-          Continue with{" "}
+        <Text className='text-lg'>
+          Continue with{' '}
           {provider &&
             provider?.substring(0, 1).toUpperCase() + provider?.substring(1)}
         </Text>
       </View>
       <Ionicons
-        name="arrow-forward"
+        name='arrow-forward'
         size={24}
-        color={Colors[theme ?? "dark"].text}
+        color={Colors[theme ?? 'dark'].text}
       />
     </TouchableOpacity>
   );

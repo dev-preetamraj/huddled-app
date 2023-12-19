@@ -1,4 +1,4 @@
-import LoadingScreen from "@/components/ui/LoadingScreen";
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 const OauthNativeCallbackScreen = () => {
   return <LoadingScreen />;

@@ -1,0 +1,4 @@
+.yarn
+.expo
+dist
+node_modules

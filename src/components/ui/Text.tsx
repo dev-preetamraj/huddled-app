@@ -1,11 +1,11 @@
-import { Text as DefaultText, StyleProp, TextStyle } from "react-native";
-import React, { ComponentProps } from "react";
-import { cva, VariantProps } from "class-variance-authority";
+import { Text as DefaultText, StyleProp, TextStyle } from 'react-native';
+import React, { ComponentProps } from 'react';
+import { cva, VariantProps } from 'class-variance-authority';
 
-const textStyles = cva("text-textLight dark:text-textDark", {
+const textStyles = cva('text-textLight dark:text-textDark', {
   variants: {
     header: {
-      true: "text-headerTextLight dark:text-headerTextDark",
+      true: 'text-headerTextLight dark:text-headerTextDark',
     },
   },
 });
