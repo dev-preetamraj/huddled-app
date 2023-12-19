@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -21,7 +23,10 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.huddledapp"
+      "package": "com.huddledapp",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -46,7 +51,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "ce946a7b-b385-4675-a625-ad8d06b65d18"
+        "projectId": "0d874c37-d2dd-402b-8c32-6c8a7138c7e5"
       }
     },
     "runtimeVersion": {
