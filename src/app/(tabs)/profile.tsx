@@ -7,8 +7,7 @@ import Text from '@/components/ui/Text';
 import Colors from '@/constants/Colors';
 import useServerUser from '@/hooks/useServerUser';
 import { RootState } from '@/store';
-import { useUser } from '@clerk/clerk-expo';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Link } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
@@ -23,25 +22,27 @@ import {
 import { useSelector } from 'react-redux';
 
 const ProfileScreen = () => {
-  const { user, isLoaded } = useUser();
   const { refetch } = useServerUser(true);
   const theme = useColorScheme() ?? 'dark';
   const serverUser = useSelector((state: RootState) => state.auth.serverUser);
+
   const updateProfileBottomSheetRef = useRef<BottomSheet>(null);
 
   const [coverImage, setCoverImage] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    setTimeout(() => {
-      refetch();
+    try {
+      await refetch();
       setRefreshing(false);
-    }, 1000);
+    } catch (err) {
+      setRefreshing(false);
+    }
   }, []);
 
-  if (!isLoaded || serverUser === null) {
+  if (serverUser === null) {
     return <LoadingScreen />;
   }
 
@@ -66,8 +67,7 @@ const ProfileScreen = () => {
           <View className='absolute -bottom-8 left-4'>
             <Image
               source={{
-                uri:
-                  profileImage ?? serverUser?.profilePicture ?? user?.imageUrl,
+                uri: profileImage ?? serverUser?.profilePicture!,
               }}
               className='h-40 w-40 rounded-full'
               style={{
@@ -75,10 +75,6 @@ const ProfileScreen = () => {
                 borderColor: Colors[theme].background,
               }}
             />
-            {/* <UpdateProfilePictureButton
-              setProfileImage={setProfileImage}
-              refetch={refetch}
-            /> */}
             <TouchableOpacity
               className='absolute right-6 bottom-0 p-2 rounded-full'
               style={{ backgroundColor: Colors[theme].background }}
@@ -99,7 +95,18 @@ const ProfileScreen = () => {
         </View>
 
         <View className='mt-10 mx-4 flex space-y-2'>
-          <Text className='text-2xl font-bold'>{user?.fullName}</Text>
+          <View className='flex flex-row items-center space-x-2'>
+            <Text className='text-2xl font-bold'>
+              {serverUser.firstName + ' ' + serverUser.lastName}
+            </Text>
+            {serverUser.isHuddledVerified ? (
+              <Octicons
+                name='verified'
+                size={24}
+                color={Colors[theme].primary}
+              />
+            ) : null}
+          </View>
           <Link href='/modals/profile/update-bio' className='mb-2'>
             {serverUser?.bio === '' || serverUser?.bio === null ? (
               <Text className='font-semibold underline underline-offset-2'>

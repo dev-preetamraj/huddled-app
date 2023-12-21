@@ -15,6 +15,13 @@ const ModalsLayout = () => {
           title: 'Update profile',
         }}
       />
+      <Stack.Screen
+        name='person/discover'
+        options={{
+          title: 'Discover people',
+        }}
+      />
+      <Stack.Screen name='profile/detail/[userId]' />
     </Stack>
   );
 };

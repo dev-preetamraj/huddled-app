@@ -1,6 +1,6 @@
 import Colors from '@/constants/Colors';
+import { RootState } from '@/store';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
-import { useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import axios from 'axios';
@@ -12,6 +12,7 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 import ActivityIndicator from '../ui/ActivityIndicator';
 import Text from '../ui/Text';
 
@@ -29,7 +30,8 @@ type Ref = BottomSheet;
 const UpdateProfilePictureBottomSheet = forwardRef<Ref, Props>(
   ({ setProfileImage, refetch }, ref) => {
     const theme = useColorScheme() ?? 'dark';
-    const { user, isLoaded } = useUser();
+    const serverUser = useSelector((state: RootState) => state.auth.serverUser);
+
     const [imageUploading, setImageUploading] = useState(false);
 
     const snapPoints = useMemo(() => ['20%'], []);
@@ -61,7 +63,7 @@ const UpdateProfilePictureBottomSheet = forwardRef<Ref, Props>(
         setProfileImage(imageUri);
 
         const imageName =
-          user?.firstName?.toLocaleLowerCase() +
+          serverUser?.firstName?.toLocaleLowerCase() +
           '_profile.' +
           imageType.split('/')[1];
 
@@ -80,7 +82,7 @@ const UpdateProfilePictureBottomSheet = forwardRef<Ref, Props>(
           setImageUploading(true);
           await axios.post(postUri, formData, {
             headers: {
-              Authorization: `Bearer ${user?.id}`,
+              Authorization: `Bearer ${serverUser?.id}`,
               'Content-Type': 'multipart/form-data',
             },
           });

@@ -1,13 +1,17 @@
-import { View, Text } from 'react-native';
-import React from 'react';
 import Button from '@/components/ui/Button';
 import { router } from 'expo-router';
+import React from 'react';
+import { View } from 'react-native';
 
 const FriendsScreen = () => {
   return (
-    <View>
-      <Text>FriendsScreen</Text>
-      <Button title='Home' className='mx-4' onPress={() => router.push('/')} />
+    <View className='flex-1'>
+      <View className='m-4'>
+        <Button
+          title='Discover more...'
+          onPress={() => router.push('/modals/person/discover')}
+        />
+      </View>
     </View>
   );
 };

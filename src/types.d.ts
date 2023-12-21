@@ -1,6 +1,9 @@
 interface BaseUser {
   id: string;
+  email: string;
   username: string;
+  firstName: string;
+  lastName: string;
   profilePicture: string | null;
   coverPicture: string;
   bio: string | null;
@@ -11,6 +14,7 @@ interface BaseUser {
   state: string | null;
   postalCode: string | null;
   country: string | null;
+  isHuddledVerified: boolean;
   lastLogin: string | null;
 }
 

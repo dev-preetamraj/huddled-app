@@ -1,36 +1,19 @@
 import { updateServerUser } from '@/features/auth/authSlice';
+import { fetchMeQueryString } from '@/graphql/usersGql';
 import { AppDispatch } from '@/store';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-const query = gql`
-  query MeQuery {
-    me {
-      id
-      username
-      profilePicture
-      coverPicture
-      bio
-      gender
-      relationshipStatus
-      street
-      city
-      state
-      postalCode
-      country
-      lastLogin
-    }
-  }
-`;
-
 const useServerUser = (useCached: boolean = false) => {
   const dispatch: AppDispatch = useDispatch();
-  const { data, loading, error, refetch } = useQuery<ProfileQuery>(query, {
-    fetchPolicy: 'network-only',
-    skip: useCached,
-  });
-
+  const { data, loading, error, refetch } = useQuery<ProfileQuery>(
+    fetchMeQueryString,
+    {
+      fetchPolicy: 'network-only',
+      skip: useCached,
+    }
+  );
 
   useEffect(() => {
     if (refetch) refetch();

@@ -1,15 +1,13 @@
 import LogoutIconButton from '@/components/LogoutIconButton';
 import Colors from '@/constants/Colors';
 import useServerUser from '@/hooks/useServerUser';
-import { useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
-import { Tabs, router } from 'expo-router';
+import { Tabs } from 'expo-router';
 import { Image, useColorScheme } from 'react-native';
 
 export default function TabLayout() {
   const theme = useColorScheme();
-  const { isSignedIn, user } = useUser();
-  const { serverUser, loading } = useServerUser();
+  const { serverUser } = useServerUser();
 
   return (
     <Tabs
@@ -58,10 +56,10 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color, size }) => {
-            if (isSignedIn && user.hasImage && !loading) {
+            if (serverUser) {
               return (
                 <Image
-                  source={{ uri: serverUser?.profilePicture ?? user.imageUrl }}
+                  source={{ uri: serverUser?.profilePicture! }}
                   className='w-6 h-6 rounded-full'
                 />
               );

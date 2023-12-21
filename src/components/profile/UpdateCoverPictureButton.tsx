@@ -1,11 +1,12 @@
-import { ToastAndroid, TouchableOpacity, useColorScheme } from 'react-native';
 import Colors from '@/constants/Colors';
-import { Ionicons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
-import axios from 'axios';
-import { useUser } from '@clerk/clerk-expo';
-import { FC, useState } from 'react';
+import { RootState } from '@/store';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
+import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
+import * as ImagePicker from 'expo-image-picker';
+import { FC, useState } from 'react';
+import { ToastAndroid, TouchableOpacity, useColorScheme } from 'react-native';
+import { useSelector } from 'react-redux';
 import ActivityIndicator from '../ui/ActivityIndicator';
 
 const BASE_REST_URL = process.env.EXPO_PUBLIC_REST_SERVER_URI;
@@ -18,9 +19,8 @@ type Props = {
 };
 
 const UpdateCoverPictureButton: FC<Props> = ({ setCoverImage, refetch }) => {
-  const { user, isLoaded } = useUser();
   const theme = useColorScheme() ?? 'dark';
-
+  const serverUser = useSelector((state: RootState) => state.auth.serverUser);
   const [imageUploading, setImageUploading] = useState(false);
 
   const updateCoverPicture = async () => {
@@ -39,7 +39,7 @@ const UpdateCoverPictureButton: FC<Props> = ({ setCoverImage, refetch }) => {
       setCoverImage(imageUri);
 
       const imageName =
-        user?.firstName?.toLocaleLowerCase() +
+        serverUser?.firstName?.toLocaleLowerCase() +
         '_cover.' +
         imageType.split('/')[1];
 
@@ -58,7 +58,7 @@ const UpdateCoverPictureButton: FC<Props> = ({ setCoverImage, refetch }) => {
         setImageUploading(true);
         await axios.post(postUri, formData, {
           headers: {
-            Authorization: `Bearer ${user?.id}`,
+            Authorization: `Bearer ${serverUser?.id}`,
             'Content-Type': 'multipart/form-data',
           },
         });
