@@ -53,7 +53,7 @@ const UpdateBioModal = () => {
   return (
     <View className='m-4'>
       <Formik
-        initialValues={{ bio: serverUser?.bio! }}
+        initialValues={{ bio: serverUser?.bio ?? '' }}
         validationSchema={bioSchema}
         onSubmit={(values) => onSubmit(values.bio!)}
       >

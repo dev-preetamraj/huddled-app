@@ -8,13 +8,17 @@ const query = gql`
   query MeQuery {
     me {
       id
+      username
       profilePicture
       coverPicture
-      gender
-      username
       bio
+      gender
       relationshipStatus
+      street
       city
+      state
+      postalCode
+      country
       lastLogin
     }
   }
@@ -26,6 +30,7 @@ const useServerUser = (useCached: boolean = false) => {
     fetchPolicy: 'network-only',
     skip: useCached,
   });
+
 
   useEffect(() => {
     if (refetch) refetch();

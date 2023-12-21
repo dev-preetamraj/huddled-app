@@ -9,6 +9,12 @@ const ModalsLayout = () => {
           title: 'Update bio',
         }}
       />
+      <Stack.Screen
+        name='profile/update-profile'
+        options={{
+          title: 'Update profile',
+        }}
+      />
     </Stack>
   );
 };

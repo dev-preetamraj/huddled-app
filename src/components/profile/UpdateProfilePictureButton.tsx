@@ -1,11 +1,11 @@
-import { ToastAndroid, TouchableOpacity, useColorScheme } from 'react-native';
 import Colors from '@/constants/Colors';
-import { Ionicons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
-import axios from 'axios';
-import { useUser } from '@clerk/clerk-expo';
-import { FC, useState } from 'react';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
+import { useUser } from '@clerk/clerk-expo';
+import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
+import * as ImagePicker from 'expo-image-picker';
+import { FC, useState } from 'react';
+import { ToastAndroid, TouchableOpacity, useColorScheme } from 'react-native';
 import ActivityIndicator from '../ui/ActivityIndicator';
 
 const BASE_REST_URL = process.env.EXPO_PUBLIC_REST_SERVER_URI;
@@ -87,6 +87,7 @@ const UpdateProfilePictureButton: FC<Props> = ({
       style={{ backgroundColor: Colors[theme].background }}
       aria-label='update-profile-picture'
       disabled={imageUploading}
+      onPress={updateProfilePicture}
     >
       {imageUploading ? (
         <ActivityIndicator />
@@ -95,7 +96,6 @@ const UpdateProfilePictureButton: FC<Props> = ({
           size={24}
           color={Colors[theme].headerText}
           name='camera-outline'
-          onPress={updateProfilePicture}
         />
       )}
     </TouchableOpacity>

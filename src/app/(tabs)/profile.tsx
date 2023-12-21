@@ -1,7 +1,7 @@
 import AddToStoryButton from '@/components/profile/AddToStoryButton';
 import EditProfileButton from '@/components/profile/EditProfileButton';
 import UpdateCoverPictureButton from '@/components/profile/UpdateCoverPictureButton';
-import UpdateProfilePictureButton from '@/components/profile/UpdateProfilePictureButton';
+import UpdateProfilePictureBottomSheet from '@/components/profile/UpdateProfilePictureBottomSheet';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import Text from '@/components/ui/Text';
 import Colors from '@/constants/Colors';
@@ -9,8 +9,9 @@ import useServerUser from '@/hooks/useServerUser';
 import { RootState } from '@/store';
 import { useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { Link } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
   Image,
   RefreshControl,
@@ -26,6 +27,7 @@ const ProfileScreen = () => {
   const { refetch } = useServerUser(true);
   const theme = useColorScheme() ?? 'dark';
   const serverUser = useSelector((state: RootState) => state.auth.serverUser);
+  const updateProfileBottomSheetRef = useRef<BottomSheet>(null);
 
   const [coverImage, setCoverImage] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -44,7 +46,7 @@ const ProfileScreen = () => {
   }
 
   return (
-    <View>
+    <View className='flex-1'>
       <ScrollView
         refreshControl={
           <RefreshControl
@@ -73,10 +75,22 @@ const ProfileScreen = () => {
                 borderColor: Colors[theme].background,
               }}
             />
-            <UpdateProfilePictureButton
+            {/* <UpdateProfilePictureButton
               setProfileImage={setProfileImage}
               refetch={refetch}
-            />
+            /> */}
+            <TouchableOpacity
+              className='absolute right-6 bottom-0 p-2 rounded-full'
+              style={{ backgroundColor: Colors[theme].background }}
+              aria-label='update-profile-picture'
+              onPress={() => updateProfileBottomSheetRef.current?.expand()}
+            >
+              <Ionicons
+                size={24}
+                color={Colors[theme].headerText}
+                name='camera-outline'
+              />
+            </TouchableOpacity>
           </View>
           <UpdateCoverPictureButton
             setCoverImage={setCoverImage}
@@ -110,6 +124,11 @@ const ProfileScreen = () => {
           </View>
         </View>
       </ScrollView>
+      <UpdateProfilePictureBottomSheet
+        setProfileImage={setProfileImage}
+        refetch={refetch}
+        ref={updateProfileBottomSheetRef}
+      />
     </View>
   );
 };

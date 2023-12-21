@@ -1,13 +1,17 @@
 interface BaseUser {
   id: string;
-  profilePicture: string;
-  coverPicture: string;
-  gender: string | null;
   username: string;
+  profilePicture: string | null;
+  coverPicture: string;
   bio: string | null;
+  gender: string | null;
   relationshipStatus: string | null;
   city: string | null;
-  lastLogin: string;
+  street: string | null;
+  state: string | null;
+  postalCode: string | null;
+  country: string | null;
+  lastLogin: string | null;
 }
 
 interface ProfileQuery {
