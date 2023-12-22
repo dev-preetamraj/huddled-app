@@ -1,6 +1,6 @@
 ## Huddled
 
-### Scan this code with a device OR [Click Here](https://expo.dev///accounts/dev.preetamraj/projects/huddled/builds/7cb4e3af-5776-45b3-8e20-540a66388038)
+### Scan this code with a device OR [Click Here](https://expo.dev//accounts/dev.preetamraj/projects/huddled/builds/b5c17016-c25a-495f-af4a-2b5dd5516d69)
 
 Open the Camera app and point it at this code. Then tap the notification that appears.
 
