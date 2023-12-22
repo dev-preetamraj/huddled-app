@@ -4,15 +4,21 @@ const ModalsLayout = () => {
   return (
     <Stack>
       <Stack.Screen
-        name='profile/update-bio'
+        name='profile/update/index'
+        options={{
+          title: 'Update profile',
+        }}
+      />
+      <Stack.Screen
+        name='profile/update/update-bio'
         options={{
           title: 'Update bio',
         }}
       />
       <Stack.Screen
-        name='profile/update-profile'
+        name='profile/update/update-username'
         options={{
-          title: 'Update profile',
+          title: 'Username',
         }}
       />
       <Stack.Screen

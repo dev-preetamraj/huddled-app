@@ -12,7 +12,7 @@ const UserSearchBox = () => {
   const theme = useColorScheme() ?? 'dark';
 
   return (
-    <View className='border border-primaryLight dark:border-primaryDark rounded-sm p-3 m-4 flex flex-row items-center justify-between space-x-2'>
+    <View className='border-b border-primaryLight dark:border-primaryDark py-2 m-4 flex flex-row items-center justify-between space-x-2'>
       <TextInput
         placeholder='Type name, username or email...'
         placeholderTextColor={Colors[theme].text}

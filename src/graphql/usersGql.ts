@@ -46,8 +46,38 @@ export const userBydQueryString = gql`
       username
       firstName
       lastName
+      bio
       profilePicture
+      coverPicture
       isHuddledVerified
+    }
+  }
+`;
+
+export const updateProfileMutationString = gql`
+  mutation UpdateProfile(
+    $username: String
+    $gender: GenderEnum
+    $relationshipStatus: RelationshipEnum
+    $street: String
+    $city: String
+    $state: String
+    $postalCode: String
+    $country: String
+  ) {
+    updateProfile(
+      username: $username
+      gender: $gender
+      relationshipStatus: $relationshipStatus
+      street: $street
+      city: $city
+      state: $state
+      postalCode: $postalCode
+      country: $country
+    ) {
+      user {
+        id
+      }
     }
   }
 `;

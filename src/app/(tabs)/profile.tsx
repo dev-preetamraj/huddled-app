@@ -107,7 +107,7 @@ const ProfileScreen = () => {
               />
             ) : null}
           </View>
-          <Link href='/modals/profile/update-bio' className='mb-2'>
+          <Link href='/modals/profile/update/update-bio' className='mb-2'>
             {serverUser?.bio === '' || serverUser?.bio === null ? (
               <Text className='font-semibold underline underline-offset-2'>
                 Update bio
@@ -117,11 +117,9 @@ const ProfileScreen = () => {
             )}
           </Link>
           <View className='flex flex-row items-center justify-between'>
-            <View className='flex flex-row items-center'>
-              <AddToStoryButton />
-              <EditProfileButton />
-            </View>
-            <TouchableOpacity className='bg-secondaryLight/20 dark:bg-secondaryDark/20 p-2 border-t-2 rounded-sm border-secondaryLight/20 dark:border-secondaryDark/20'>
+            <AddToStoryButton />
+            <EditProfileButton />
+            <TouchableOpacity className='h-10 w-[15%] bg-secondaryLight/10 dark:bg-secondaryDark/10 flex items-center justify-center'>
               <Ionicons
                 name='ellipsis-horizontal'
                 size={24}
