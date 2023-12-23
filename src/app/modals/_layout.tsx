@@ -1,3 +1,4 @@
+import HeaderLeftCrossButton from '@/components/ui/HeaderLeftCrossButton';
 import { Stack } from 'expo-router';
 
 const ModalsLayout = () => {
@@ -7,18 +8,28 @@ const ModalsLayout = () => {
         name='profile/update/index'
         options={{
           title: 'Update profile',
+          headerLeft: () => <HeaderLeftCrossButton />,
         }}
       />
       <Stack.Screen
         name='profile/update/update-bio'
         options={{
           title: 'Update bio',
+          headerLeft: () => <HeaderLeftCrossButton />,
         }}
       />
       <Stack.Screen
         name='profile/update/update-username'
         options={{
           title: 'Username',
+          headerLeft: () => <HeaderLeftCrossButton />,
+        }}
+      />
+      <Stack.Screen
+        name='profile/update/update-gender'
+        options={{
+          title: 'Gender',
+          headerLeft: () => <HeaderLeftCrossButton />,
         }}
       />
       <Stack.Screen
