@@ -6,8 +6,8 @@ import { Link } from 'expo-router';
 import {
   ScrollView,
   TouchableOpacity,
-  View,
   useColorScheme,
+  View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -44,6 +44,25 @@ const UpdateProfileModal = () => {
                 ? serverUser?.gender?.charAt(0).toUpperCase() +
                   serverUser.gender.toLowerCase().slice(1)
                 : 'Update gender'}
+            </Text>
+            <Ionicons
+              name='chevron-forward'
+              size={24}
+              color={Colors[theme].headerText}
+            />
+          </View>
+        </TouchableOpacity>
+      </Link>
+
+      <Link href='/modals/profile/update/update-relationship' asChild>
+        <TouchableOpacity className='mx-4 mt-4'>
+          <Text className='text-sm font-light'>Relationship</Text>
+          <View className='border-b border-primaryLight dark:border-primaryDark py-2 text-textLight dark:text-textDark flex flex-row items-center justify-between'>
+            <Text header>
+              {serverUser?.relationshipStatus
+                ? serverUser?.relationshipStatus?.charAt(0).toUpperCase() +
+                  serverUser.relationshipStatus.toLowerCase().slice(1)
+                : 'Update relationship'}
             </Text>
             <Ionicons
               name='chevron-forward'

@@ -24,16 +24,32 @@ export const fetchMeQueryString = gql`
   }
 `;
 
-export const discoverPeopleQueryString = gql`
-  query {
-    suggestedUsers {
-      id
-      email
-      username
-      firstName
-      lastName
-      profilePicture
-      isHuddledVerified
+export const suggestedUsersQueryString = gql`
+  query SuggestedUserQuery(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+  ) {
+    suggestedUsers(first: $first, last: $last, after: $after, before: $before) {
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          email
+          username
+          firstName
+          lastName
+          profilePicture
+          isHuddledVerified
+        }
+      }
     }
   }
 `;

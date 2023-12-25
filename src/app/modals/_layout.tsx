@@ -33,9 +33,22 @@ const ModalsLayout = () => {
         }}
       />
       <Stack.Screen
+        name='profile/update/update-relationship'
+        options={{
+          title: 'Relationship',
+          headerLeft: () => <HeaderLeftCrossButton />,
+        }}
+      />
+      <Stack.Screen
         name='person/discover'
         options={{
           title: 'Discover people',
+        }}
+      />
+      <Stack.Screen
+        name='person/sent-requests'
+        options={{
+          title: 'Sent requests',
         }}
       />
       <Stack.Screen name='profile/detail/[userId]' />

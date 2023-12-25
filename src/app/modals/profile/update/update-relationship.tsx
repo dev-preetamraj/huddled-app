@@ -17,7 +17,7 @@ import {
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { useSelector } from 'react-redux';
 
-const UpdateGenderScreen = () => {
+const UpdateRelationshipStatusScreen = () => {
   const theme = useColorScheme() ?? 'dark';
   const serverUser = useSelector((state: RootState) => state.auth.serverUser);
   const { refetch } = useServerUser(true);
@@ -26,34 +26,40 @@ const UpdateGenderScreen = () => {
     updateProfileMutationString
   );
 
-  const [selectedGender, setSelectedGender] = useState(
-    serverUser?.gender?.toLocaleLowerCase() ?? ''
+  const [selectedRelationshipStatus, setSelectedRelatonshipStatus] = useState(
+    serverUser?.relationshipStatus?.toLowerCase() ?? ''
   );
 
-  const [gender, setGender] = useState({
-    male: selectedGender === 'male',
-    female: selectedGender === 'female',
-    others: selectedGender === 'others',
+  const [relationshipStatus, setRelationshipStatus] = useState({
+    single: selectedRelationshipStatus === 'single',
+    married: selectedRelationshipStatus === 'married',
+    divorced: selectedRelationshipStatus === 'divorced',
+    complicated: selectedRelationshipStatus === 'complicated',
   });
 
   useEffect(() => {
-    setGender({
-      male: selectedGender === 'male',
-      female: selectedGender === 'female',
-      others: selectedGender === 'others',
+    setRelationshipStatus({
+      single: selectedRelationshipStatus === 'single',
+      married: selectedRelationshipStatus === 'married',
+      divorced: selectedRelationshipStatus === 'divorced',
+      complicated: selectedRelationshipStatus === 'complicated',
     });
-  }, [selectedGender]);
+  }, [selectedRelationshipStatus]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         if (
           !loading &&
-          selectedGender !== serverUser?.gender?.toLocaleLowerCase() &&
-          selectedGender !== ''
+          selectedRelationshipStatus !==
+            serverUser?.relationshipStatus?.toLowerCase() &&
+          selectedRelationshipStatus !== ''
         ) {
           return (
-            <TouchableOpacity disabled={loading} onPress={updateGender}>
+            <TouchableOpacity
+              disabled={loading}
+              onPress={updaterelationshipStatus}
+            >
               <Ionicons
                 name='checkmark'
                 size={24}
@@ -66,14 +72,16 @@ const UpdateGenderScreen = () => {
         }
       },
     });
-  }, [gender, serverUser, loading]);
+  }, [relationshipStatus, serverUser, loading]);
 
-  const updateGender = async () => {
+  const updaterelationshipStatus = async () => {
     try {
       const res = await updateProfileMutation({
-        variables: { gender: selectedGender.toLocaleUpperCase() },
+        variables: {
+          relationshipStatus: selectedRelationshipStatus.toUpperCase(),
+        },
       });
-      ToastAndroid.show('Gender updated', ToastAndroid.SHORT);
+      ToastAndroid.show('Relationship status updated', ToastAndroid.SHORT);
       refetch();
       router.back();
     } catch (err: any) {
@@ -85,7 +93,7 @@ const UpdateGenderScreen = () => {
     <View className='flex-1 m-4 space-y-4'>
       <View className='flex flex-row items-center justify-between'>
         <Text header className='text-lg'>
-          Female
+          Single
         </Text>
         <BouncyCheckbox
           size={25}
@@ -93,15 +101,15 @@ const UpdateGenderScreen = () => {
           fillColor={Colors[theme].primary}
           innerIconStyle={{ borderWidth: 2 }}
           disableBuiltInState
-          isChecked={gender.female}
+          isChecked={relationshipStatus.single}
           onPress={() => {
-            setSelectedGender('female');
+            setSelectedRelatonshipStatus('single');
           }}
         />
       </View>
       <View className='flex flex-row items-center justify-between'>
         <Text header className='text-lg'>
-          Male
+          Married
         </Text>
         <BouncyCheckbox
           size={25}
@@ -109,16 +117,16 @@ const UpdateGenderScreen = () => {
           fillColor={Colors[theme].primary}
           innerIconStyle={{ borderWidth: 2 }}
           disableBuiltInState
-          isChecked={gender.male}
+          isChecked={relationshipStatus.married}
           onPress={() => {
-            setSelectedGender('male');
+            setSelectedRelatonshipStatus('married');
           }}
         />
       </View>
 
       <View className='flex flex-row items-center justify-between'>
         <Text header className='text-lg'>
-          Others
+          Divorced
         </Text>
         <BouncyCheckbox
           size={25}
@@ -126,9 +134,26 @@ const UpdateGenderScreen = () => {
           fillColor={Colors[theme].primary}
           innerIconStyle={{ borderWidth: 2 }}
           disableBuiltInState
-          isChecked={gender.others}
+          isChecked={relationshipStatus.divorced}
           onPress={() => {
-            setSelectedGender('others');
+            setSelectedRelatonshipStatus('divorced');
+          }}
+        />
+      </View>
+
+      <View className='flex flex-row items-center justify-between'>
+        <Text header className='text-lg'>
+          It's complicated
+        </Text>
+        <BouncyCheckbox
+          size={25}
+          disableText
+          fillColor={Colors[theme].primary}
+          innerIconStyle={{ borderWidth: 2 }}
+          disableBuiltInState
+          isChecked={relationshipStatus.complicated}
+          onPress={() => {
+            setSelectedRelatonshipStatus('complicated');
           }}
         />
       </View>
@@ -136,4 +161,4 @@ const UpdateGenderScreen = () => {
   );
 };
 
-export default UpdateGenderScreen;
+export default UpdateRelationshipStatusScreen;

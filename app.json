@@ -7,11 +7,7 @@
     "icon": "./src/assets/images/icon.png",
     "scheme": "huddled",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./src/assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
@@ -22,7 +18,17 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.huddledapp",
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": ["android.permission.RECORD_AUDIO"],
+      "splash": {
+        "image": "./src/assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#e8ebfd",
+        "dark": {
+          "image": "./src/assets/images/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#020617"
+        }
+      }
     },
     "web": {
       "bundler": "metro",

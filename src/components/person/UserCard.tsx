@@ -21,6 +21,7 @@ const UserCard: FC<Props> = ({ user }) => {
           className='h-20 w-20 rounded-full'
         />
       </TouchableOpacity>
+
       <View className='flex-1'>
         <View className='flex flex-row items-center justify-between'>
           <View className='flex flex-row items-center space-x-2'>
@@ -35,6 +36,7 @@ const UserCard: FC<Props> = ({ user }) => {
               />
             ) : null}
           </View>
+
           <TouchableOpacity>
             <Ionicons
               name='person-add-outline'
@@ -43,6 +45,7 @@ const UserCard: FC<Props> = ({ user }) => {
             />
           </TouchableOpacity>
         </View>
+
         <Text className='text-sm font-light'>
           {user.username === user.email ? '' : `@${user.username}`}
         </Text>

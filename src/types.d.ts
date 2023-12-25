@@ -21,3 +21,32 @@ interface BaseUser {
 interface ProfileQuery {
   me: BaseUser;
 }
+
+interface BaseBulkUserQueryType {
+  pageInfo: {
+    startCursor: string;
+    endCursor: string;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
+  edges: {
+    cursor: string;
+    node: Partial<BaseUser>;
+  }[];
+}
+
+interface SuggestedUsersQueryType {
+  suggestedUsers: BaseBulkUserQueryType;
+}
+
+interface FriendRequestsQueryType {
+  friendRequests: BaseBulkUserQueryType;
+}
+
+interface SentRequestsQueryType {
+  sentRequests: BaseBulkUserQueryType;
+}
+
+interface Friendship {
+  isAccepted: boolean;
+}

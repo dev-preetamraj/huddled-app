@@ -1,13 +1,13 @@
-import { View, TouchableOpacity, useColorScheme } from 'react-native';
+import { TouchableOpacity, useColorScheme, View } from 'react-native';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
 import { cva, VariantProps } from 'class-variance-authority';
-import Text from './ui/Text';
 import { useWarmUpBrowser } from '@/hooks/warmUpBrowser';
 import { useOAuth } from '@clerk/clerk-expo';
 import * as WebBrowser from 'expo-web-browser';
 import { router } from 'expo-router';
+import Text from '@/components/ui/Text';
 
 WebBrowser.maybeCompleteAuthSession();
 

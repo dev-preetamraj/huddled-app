@@ -1,13 +1,11 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
-import Button from '@/components/ui/Button';
-import { router } from 'expo-router';
+import Text from '@/components/ui/Text';
 
 const ChatScreen = () => {
   return (
-    <View>
+    <View className='flex-1'>
       <Text>ChatScreen</Text>
-      <Button title='Home' className='mx-4' onPress={() => router.push('/')} />
     </View>
   );
 };

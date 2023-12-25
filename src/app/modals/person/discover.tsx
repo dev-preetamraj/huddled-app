@@ -2,19 +2,15 @@ import UserCard from '@/components/person/UserCard';
 import UserSearchBox from '@/components/person/UserSearchBox';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import Colors from '@/constants/Colors';
-import { discoverPeopleQueryString } from '@/graphql/usersGql';
+import { suggestedUsersQueryString } from '@/graphql/usersGql';
 import { useQuery } from '@apollo/client';
 import { FlashList } from '@shopify/flash-list';
 import { useCallback, useState } from 'react';
-import { RefreshControl, View, useColorScheme } from 'react-native';
-
-type QueryType = {
-  suggestedUsers: Partial<BaseUser>[];
-};
+import { RefreshControl, useColorScheme, View } from 'react-native';
 
 const DiscoverPersonScreen = () => {
-  const { data, error, loading, refetch } = useQuery<QueryType>(
-    discoverPeopleQueryString
+  const { data, error, loading, refetch } = useQuery<SuggestedUsersQueryType>(
+    suggestedUsersQueryString
   );
   const theme = useColorScheme() ?? 'dark';
   const [refreshing, setRefreshing] = useState(false);
@@ -37,8 +33,8 @@ const DiscoverPersonScreen = () => {
     <View className='flex-1'>
       <UserSearchBox />
       <FlashList
-        data={data?.suggestedUsers}
-        renderItem={({ item }) => <UserCard user={item} />}
+        data={data?.suggestedUsers.edges}
+        renderItem={({ item }) => <UserCard user={item.node} />}
         estimatedItemSize={100}
         refreshControl={
           <RefreshControl
